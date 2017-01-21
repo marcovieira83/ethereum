@@ -1,55 +1,41 @@
-var accounts;
-var account;
+var app = angular.module("mySimpleWalletDapp", ['ngRoute']);
 
-function setStatus(message) {
-  var status = document.getElementById("status");
-  status.innerHTML = message;
-};
+app.controller('MainController', function ($scope) {
+  var contract = SimpleWallet.deployed();
+  $scope.balance = web3.eth.getBalance(contract.address).toNumber();
+  $scope.balanceInEther = web3.fromWei($scope.balance, "ether");
+});
 
-function refreshBalance() {
-  var meta = MetaCoin.deployed();
+app.controller("ShowEventsController", function ($scope) {
+  $scope.myVar = "ShowEvents";
+});
 
-  meta.getBalance.call(account, {from: account}).then(function(value) {
-    var balance_element = document.getElementById("balance");
-    balance_element.innerHTML = value.valueOf();
-  }).catch(function(e) {
-    console.log(e);
-    setStatus("Error getting balance; see log.");
+app.controller("SendFundsController", function ($scope) {
+  $scope.accounts = web3.eth.accounts;
+  $scope.depositFunds = function(address, amount) {
+    var contract = SimpleWallet.deployed();
+
+    web3.eth.sendTransaction({from: address, to: contract.address,
+      value: web3.toWei(amount, "ether")}, function(error, result) {
+        if (error) {
+          $scope.has_errors = "I did not work";
+        } else {
+          $scope.transfer_success = true;
+        }
+        $scope.$apply();
+      });
+  }
+});
+
+app.config(function($routeProvider) {
+  $routeProvider.when("/", {
+    templateUrl: "views/main.html",
+    controller: "MainController"
+  }).when("/events", {
+    templateUrl: "views/events.html",
+    controller: "ShowEventsController"
+  }).when("/sendfunds", {
+    templateUrl: "views/sendfunds.html",
+    controller: "SendFundsController"
   });
-};
-
-function sendCoin() {
-  var meta = MetaCoin.deployed();
-
-  var amount = parseInt(document.getElementById("amount").value);
-  var receiver = document.getElementById("receiver").value;
-
-  setStatus("Initiating transaction... (please wait)");
-
-  meta.sendCoin(receiver, amount, {from: account}).then(function() {
-    setStatus("Transaction complete!");
-    refreshBalance();
-  }).catch(function(e) {
-    console.log(e);
-    setStatus("Error sending coin; see log.");
-  });
-};
-
-window.onload = function() {
-  web3.eth.getAccounts(function(err, accs) {
-    if (err != null) {
-      alert("There was an error fetching your accounts.");
-      return;
-    }
-
-    if (accs.length == 0) {
-      alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-      return;
-    }
-
-    accounts = accs;
-    account = accounts[0];
-
-    refreshBalance();
-  });
-}
+});
