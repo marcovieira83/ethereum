@@ -17,3 +17,74 @@ BC não reconhece como moeda
 21 milhoes de unidades
 2140 unidades pararão de ser criadas
 bitcoin como ação, voto
+
+everton fraga
+mist - browser for Dapps
+blockchain
+  distribuido - msm protocolo rodando em N clientes
+  lista crescente de registros - ordem bem definida
+  a prova de alterações - não pode alterar dado passado
+consenso
+  Quem garante o saldo da sua conta?
+  Quem inventou o fds?
+  Quando as partes concordam, vira verdade.
+  no blockchain é via algoritmo
+Como surgiu
+  Vitalik Buterin
+  Dr. Gavin Wood - Eth, Parity
+  Jeffrey Wilcke - Geth
+Ethereum Foundation
+  2014, via financiamento coletivo
+  Open Source Software
+Ecossistema
+  Blockchain (eth, Geth, Parity)
+  Whisper (protocolo de comunicação anônimo. chat anonimo. email anonimo.)
+  Swarm (tipo torrent e acessar sites)
+Quem mantém a rede viva? E pq?
+Proof of Work
+  Incentivo financeiro
+  Computador trabalha, e manda para a rede. Se a rede aceita, ganha $!
+Proof of Stake
+  Deve ser esse ano
+  Vc coloca seu stake, e tem chance de ganhar
+  Se seu nó está sendo malicioso, vc irá perder dinheiro
+  Cheque caução
+  Se vc tiver mais, vc ganha mais. Tipo rendimento, juros.
+  Adoção faseada, e a ideia é eliminar PoW
+  Mais seguro - elimina 51% attack
+Proof of Authority
+  Blockchain permissionada
+  Redes privadas
+  Não existe mineração
+  "Eu sou o Porto de Santos"
+Ethereum
+  Clientes atuais: Geth, Eth, Parity, EthereumJ, Pyethereum
+  Usuário comum - sincronizar a rede antes de usar
+  Ethereum Light Client - entrega o resultado da rede a cada X tempo
+Smart Contracts
+  Core do ethereum
+  Código que alterar o estado da rede
+  Solidity - Linguagem touring complete
+  Gas - combustível para os contratos executarem na rede
+Ethereum Wallet
+Dapps
+  Javascript, CSS
+  backend é o blockchain
+  Sites que interagem com a blockchain
+  Contratos com um rosto/interface próprio, a wallet tem uma interface genérica
+  Usam web3.js
+  Busca informação localmente no cliente, pois ele já tem a informação
+  Diversar ferramentas disponíveis para devs
+  Akasha - rede social feita na blockchain
+Mist
+  dentro do mist roda o Dapp
+  Só usa GAS para mudar a blockchain, não para consumir. Pq? Pq para consumir vc
+  está vendo localmente, e não precisará de mineração
+Swarm
+  Armazenamento decentralizado
+  Pessoas armazenam dados da rede
+  Sistema de incentivo, modelo econômico
+  Ainda está sendo integrado com outros
+  IPFS - Interplanetary filesystem
+  ENS - ethereum name system
+Web 3
