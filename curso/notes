@@ -88,3 +88,60 @@ Swarm
   IPFS - Interplanetary filesystem
   ENS - ethereum name system
 Web 3
+  BD decentralizado
+  Sites servidos via P2P
+  Navegador
+  Status - querem ser o mist mobile
+  Metamask - extensão para chrome
+Devcon
+  Encontro anual de entusiastas Ethereum
+  Berlin, London, Shangai
+  Deve ser no México a próx.
+  700 pessoas na última
+  Expectativa de ter 2000 pessoas na proxima
+Fases
+  Fase 0 - Frontier - devs
+  Fase 1 - Homestead - early adopters
+  Fase 2 - Metropolis - browser, PoS
+  Fase 3 - Serenity - escalabilidade, sharding
+Escopos de rede Ethereum
+  Main net oficial
+  Test net oficial
+    Morden > Ropsten
+  Redes alternativas públicas
+  Redes privadas
+  Rede local privada > desenvolvimento
+  rede local privada ==> test net ==> main net
+Ether nas redes públicas
+  Problema ovo-galinha
+  Mineração
+  Exchanges (shapeshift.io)
+  Faucet
+  Transferência P2P
+Network browser
+  etherscan.io
+Clients ethereum
+  etc C++
+  geth Golang
+  parity Rust
+  pyethereum Python
+  ethereumJ Java
+  Importante ter vários clientes, para que a rede seja resiliente
+Protocolo
+  whitepaper do ethereum - vitalik e gavin wood
+EIP
+  Ethereum Improvement Proposal
+Faucet
+  curl -X POST -d 'address' https://faucet.metamask...
+Componentes do Geth
+  genesis file
+  geth (executável)
+  bootnodes
+  Full node vs. Light client (--light)
+Running
+  ~/.ethereum
+  geth/chaindata fica armazenado o blockchain
+  personal.newAccount('senha') -- new account
+
+  geth-private --autoMine
+  
