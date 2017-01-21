@@ -144,3 +144,4 @@ Running
   personal.newAccount('senha') -- new account
 
   geth-private --autoMine
+  adicionando uma linha para testar
