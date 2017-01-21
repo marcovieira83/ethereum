@@ -145,3 +145,12 @@ Running
 
   geth-private --autoMine
   adicionando uma linha para testar
+Smart Contracts
+  NIick Szabo - 1994
+  Protocolo de transações computacionais que executam termos de um contrato
+  Minimizar necessidade de intermediários
+  Diminuir fraudes e arbitrariedades
+  Exemplos
+    Votação sem fraude
+    Distribuição de lucros um uma empresa
+    Gestão de verba pública
