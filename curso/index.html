@@ -1,0 +1,16 @@
+<html>
+  <body>
+    <script>
+      var transfer = function() {
+        eth.sendTransaction({
+          from: '0xbc7Caf6927177b7CB96013C3bA053e876455a06E',
+          to: document.querySelector('#to').value,
+          value: web3.toWei(1, 'ether')
+        });
+      }
+    </script>
+    <input type="text" id="to">To</input>
+    <br>
+    <button onclick="transfer();">Transferir</button>
+  </body>
+</html>
