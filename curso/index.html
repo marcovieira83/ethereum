@@ -1,16 +1,111 @@
 <html>
-  <body>
-    <script>
-      var transfer = function() {
-        eth.sendTransaction({
-          from: '0xbc7Caf6927177b7CB96013C3bA053e876455a06E',
-          to: document.querySelector('#to').value,
-          value: web3.toWei(1, 'ether')
+  <head>
+    <script type="text/javascript" src="node_modules/bignumber.js/bignumber.min.js"></script>
+    <script type="text/javascript" src="dist/web3-light.js"></script>
+    <script type="text/javascript">
+      var Web3 = require('web3');
+      var web3 = new Web3();
+      web3.setProvider(new web3.providers.HttpProvider('http://localhost:8545'));
+      var eth = web3.eth;
+      var output = '';
+      var coinbase = eth.coinbase;
+
+      function loadCoinbase() {
+        balance = web3.fromWei(eth.getBalance(coinbase));
+        document.getElementById('coinbase').innerText = coinbase;
+        document.getElementById('balance').innerText = balance;
+      }
+
+      function write(key, value) {
+        output += key + ': ' + value + '\n';
+      }
+
+      function loadSender() {
+        document.getElementById('from').value = coinbase;
+      }
+
+      function loadEth() {
+        output = '';
+        write('coinbase', eth.coinbase);
+        write('gasPrice', eth.gasPrice);
+        write('accounts', eth.accounts);
+        write('blockNumber', eth.blockNumber);
+        document.getElementById('eth').innerText = output;
+      }
+
+      function loadAccounts() {
+        accountsAndBalances();
+        eth.filter('latest').watch(function() {
+          accountsAndBalances();
         });
       }
+
+      function accountsAndBalances() {
+        output = '';
+        eth.accounts.forEach(acc =>
+          write(acc, web3.fromWei(eth.getBalance(acc)) + ' ETH'));
+          document.getElementById('accounts').innerText = output;
+      }
+
+      function transfer() {
+        var msg = '';
+        amount = document.querySelector('#amount').value;
+        sender = document.querySelector('#from').value;
+        recipient = document.querySelector('#to').value;
+        if (!recipient) msg = 'Recipient Address should be informed';
+        else if (!web3.isAddress(recipient)) msg = 'Recipient Address invalid';
+        else if (!amount) msg = 'Amount should be informed';
+        else {
+          amountInWei = web3.toWei(amount, 'ether');
+          eth.sendTransaction({
+            from: sender,
+            to: recipient,
+            value: amountInWei
+          }, function(error, txHash) {
+            msg = !error ? 'SUCCESS! txHash: ' + txHash : 'ERROR: ' + error;
+            document.getElementById('transferResult').innerText = msg;
+          });
+        }
+        document.getElementById('transferResult').innerText = msg;
+      }
+
+      function txByHash() {
+        txHash = document.getElementById('txHash').value;
+        output = '';
+        write('info', JSON.stringify(eth.getTransaction(txHash)));
+        document.getElementById('txInfo').innerText = output;
+      }
     </script>
-    <input type="text" id="to">To</input>
+  </head>
+  <body onload="loadSender(); loadCoinbase(); loadEth(); loadAccounts();">
+    <div>
+    coinbase: <span id="coinbase"></span>
+    </div>
+    <div>
+    balance:  <span id="balance"></span>
+    </div>
     <br>
-    <button onclick="transfer();">Transferir</button>
+    <br>
+    <div><input type="text" id="from" placeholder="Sender Address" size="40"/></div>
+    <div><input type="text" id="to" placeholder="Recipient Address" size="40"/></div>
+    <div><input type="number" id="amount" placeholder="Amount"/></div>
+    <div><button onclick="transfer()">Transfer</button></div>
+    <div id="transferResult"></div>
+    <br>
+    <br>
+    <div>
+      TX BY HASH
+      <div><input type="text" id="txHash" placeholder="Tx hash" size="70"/></div>
+      <div><button onclick="txByHash()">Search</button></div>
+      <div id="txInfo"></div>
+    </div>
+    <br>
+    <div>
+      ALL ACCOUNTS<div id="accounts"></div>
+    </div>
+    <br>
+    <div>
+      ETH OUTPUT<div id="eth"></div>
+    </div>
   </body>
 </html>
